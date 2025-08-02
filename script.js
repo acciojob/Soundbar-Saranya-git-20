@@ -14,15 +14,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function playSound(soundName) {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-
-    const audio = new Audio(`sounds/${soundName}.mp3`);
-    audio.play();
-    currentAudio = audio;
+  // Stop previous audio if playing
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
   }
+
+  // Create and append audio to DOM
+  const audio = document.createElement('audio');
+  audio.src = `sounds/${soundName}.mp3`;
+  audio.controls = true; // optional: shows player UI
+  audio.autoplay = true;
+
+  // Clear any old audio tag (optional)
+  const existing = document.getElementById('active-audio');
+  if (existing) existing.remove();
+
+  audio.id = 'active-audio';
+  document.body.appendChild(audio);
+
+  currentAudio = audio;
+}
+
 
   // Stop button logic
   document.querySelector('.stop').addEventListener('click', () => {
