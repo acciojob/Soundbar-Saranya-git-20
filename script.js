@@ -1,4 +1,4 @@
-const soundNames = []; // Match with your actual filenames (without extension)
+const soundNames = ['applause', 'boo', 'gasp', 'tada', 'victory', 'wrong'];
 const buttonContainer = document.getElementById('buttons');
 
 let currentAudio = null;
