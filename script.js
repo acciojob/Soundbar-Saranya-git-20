@@ -1,14 +1,34 @@
-let currentAudio;
+const soundNames = []; // Match with your actual filenames (without extension)
+const buttonContainer = document.getElementById('buttons');
 
-    function playSound(name) {
-      stopSound(); // stop previous sound
-      currentAudio = new Audio(name + '.mp3');
-      currentAudio.play();
-    }
+let currentAudio = null;
 
-    function stopSound() {
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0;
-      }
-    }
+// Create a button for each sound
+soundNames.forEach(sound => {
+  const btn = document.createElement('button');
+  btn.className = 'btn';
+  btn.innerText = sound;
+  btn.addEventListener('click', () => playSound(sound));
+  buttonContainer.appendChild(btn);
+});
+
+// Play the corresponding sound
+function playSound(soundName) {
+  // Stop previous audio if playing
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+
+  const audio = new Audio(`sounds/${soundName}.mp3`);
+  audio.play();
+  currentAudio = audio;
+}
+
+// Stop button logic
+document.querySelector('.stop').addEventListener('click', () => {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+  }
+});
